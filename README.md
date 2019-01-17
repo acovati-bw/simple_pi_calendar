@@ -1,7 +1,7 @@
 # simple_pi_calendar
 A very simple dashboard to display on a raspberry pi type dashboard that shows two calendar views, a traffic map, the weather, and a picture of your choosing.
 
-[[/example_picture.jpg|alt=a picture of a dashboard in the wild]]
+<img src="/example_picture.jpg" height="550px">
 
 # Setup
 You will need to make your own config file `config/config.js`, there is an example file to help
