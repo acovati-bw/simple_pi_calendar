@@ -1,0 +1,19 @@
+// you need to create a google api account and add calendar permissions to it
+google_calendar_api_key='YOUR_KEY';
+// The id of the calendar that you want to display
+google_calendar_id='GET_THIS_FROM_GOOGLE_CAL_SETTINGS@group.calendar.google.com';
+//
+// Traffic Map
+//
+// Google API key for the map, different than the cal key
+google_map_api_key='YOUR_GOOGLE_MAP_API_KEY';
+// lat and long to center the traffic map
+lat=35.897711;
+long=-78.8774704;
+
+//
+// Weather by week
+//
+// Got to the url below and search for your city, replace with the new url (include the unit param)
+forecast_url="https://forecast7.com/en/35d99n78d90/durham/?unit=us";
+city_name="Durham";

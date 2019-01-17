@@ -1,0 +1,224 @@
+<html>
+<head>
+	<meta http-equiv="refresh" content="1800">
+	<link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
+	<script src='config/config.js'></script>
+	<script src='lib/jquery.min.js'></script>
+	<script src='lib/moment.min.js'></script>
+	<script src='fullcalendar/fullcalendar.js'></script>
+	<script type='text/javascript' src='fullcalendar/gcal.js'></script>
+        <link href='https://use.fontawesome.com/releases/v5.0.6/css/all.css' rel='stylesheet'>
+        <link href='https://bootswatch.com/4/slate/bootstrap.min.css' rel='stylesheet'>
+	<link rel='stylesheet' href='lib/style.css' />
+<script type='text/javascript'>
+
+$(function() {
+  display_ct();
+  $('#week').fullCalendar({
+    googleCalendarApiKey: google_calendar_api_key,
+    events: {
+      googleCalendarId: google_calendar_id,
+    },
+    defaultView: 'agendaFourDay',
+    contentHeight: 705,
+    minTime: '07:00:00',
+    maxTime: '22:00:00',
+    slotDuration: '00:30:00',
+    slotLabelInterval: {hours:1},
+    views: {
+        agendaFourDay: {
+          type: 'agenda',
+          duration: { days: 6 },
+        }
+    },
+    nowIndicator: true,
+    header: false,
+    themeSystem: 'bootstrap4'
+  });
+
+
+  gotoDay = new Date();
+  gotoDay.setDate(gotoDay.getDate() + 6);
+  $('#upnext_list').fullCalendar({
+    googleCalendarApiKey: google_calendar_api_key,
+    events: {
+      googleCalendarId: google_calendar_id,
+    },
+    defaultView: 'list',
+    type: 'list',
+    duration: {days: 7 },
+    contentHeight: 7000,
+    header: false,
+    scroll:false,
+    themeSystem: 'bootstrap4',
+    defaultDate: gotoDay
+  });
+
+    var refresh=1000*60; // Refresh rate in milli seconds
+    timer=setTimeout('cal_refresh()',refresh)
+});
+
+function display_c(){
+    var refresh=1000*60; // Refresh rate in milli seconds
+    mytime=setTimeout('display_ct()',refresh)
+}
+
+function cal_refresh(){
+ $('#week').fullCalendar('refetchEvents');
+ $('#upnext_list').fullCalendar('refetchEvents');
+ console.log('refetched for both calendars')
+}
+
+function display_ct() {
+   var date = new Date()
+   var year = date.getYear() - 100;
+
+   locale = "en-us",
+   month = date.toLocaleString(locale, { month: "long" });
+
+   var x1= month +" "
+   day = date.getDate()
+   lastDigit = day.toString().split('').pop();
+   if (lastDigit == 1 && day != 11) x1 += day +"st "
+   else if (lastDigit == 2 && day != 12) x1 += day +"nd "
+   else if (lastDigit == 3 && day != 13) x1 += day +"rd "
+   else x1 += day +"th "
+
+   var hours = date.getHours();
+   var minutes = date.getMinutes();
+   hours = hours % 12;
+   hours = hours ? hours : 12; // the hour '0' should be '12'
+   minutes = minutes < 10 ? '0'+minutes : minutes;
+   x1 += hours + ':' + minutes;
+
+   document.getElementById('ct').innerHTML = x1;
+   display_c();
+}
+
+</script>
+
+</head>
+<body>
+
+<div id="intro" class="lead"><span id='ct' ></span></div> 
+
+<div id='week'></div>
+<div id="fam_pic">
+<img style="height:350px;" onerror="this.src='default.jpg'" src="image.png">
+<div id="map" style="height:350px;"></div>
+    <script>
+	// https://developers.google.com/maps/documentation/javascript/examples/style-array
+
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 10.25,
+          center: {lat: lat, lng: long},
+	  disableDefaultUI: true,
+styles: [
+            {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
+            {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
+            {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
+            {
+              featureType: 'administrative.locality',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#d59563'}]
+            },
+            {
+              featureType: 'poi',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#d59563'}]
+            },
+            {
+              featureType: 'poi.park',
+              elementType: 'geometry',
+              stylers: [{color: '#263c3f'}]
+            },
+            {
+              featureType: 'poi.park',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#6b9a76'}]
+            },
+            {
+              featureType: 'road',
+              elementType: 'geometry',
+              stylers: [{color: '#38414e'}]
+            },
+            {
+              featureType: 'road',
+              elementType: 'geometry.stroke',
+              stylers: [{color: '#212a37'}]
+            },
+            {
+              featureType: 'road',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#9ca5b3'}]
+            },
+            {
+              featureType: 'road.highway',
+              elementType: 'geometry',
+              stylers: [{color: '#746855'}]
+            },
+            {
+              featureType: 'road.highway',
+              elementType: 'geometry.stroke',
+              stylers: [{color: '#1f2835'}]
+            },
+            {
+              featureType: 'road.highway',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#f3d19c'}]
+            },
+            {
+              featureType: 'transit',
+              elementType: 'geometry',
+              stylers: [{color: '#2f3948'}]
+            },
+            {
+              featureType: 'transit.station',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#d59563'}]
+            },
+            {
+              featureType: 'water',
+              elementType: 'geometry',
+              stylers: [{color: '#17263c'}]
+            },
+            {
+              featureType: 'water',
+              elementType: 'labels.text.fill',
+              stylers: [{color: '#515c6d'}]
+            },
+            {
+              featureType: 'water',
+              elementType: 'labels.text.stroke',
+              stylers: [{color: '#17263c'}]
+            }
+          ]
+        });
+
+        var trafficLayer = new google.maps.TrafficLayer();
+        trafficLayer.setMap(map);
+      }
+
+    </script>
+<script>
+	// set the url for loading the map js
+	var map_url = "https://maps.googleapis.com/maps/api/js?key="+google_map_api_key+"&callback=initMap";
+	var script = document.createElement('script');
+	script.src = map_url;
+document.head.appendChild(script);
+</script>
+</div>
+
+<div id='upnext_list'></div>
+<a id="forecast" class="weatherwidget-io" href="" data-label_1="Your City" data-label_2="Today" data-theme="gray" data-basecolor="#222" data-textcolor="#ccc" data-cloudcolor="#ccc" >Weather Today</a>
+
+<script>
+weather_a=document.getElementById('forecast');
+weather_a.href=forecast_url;
+weather_a.innerHTML = city_name;
+weather_a.setAttribute('data-label_1', city_name);
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+</script>
+</body>
+</html>
