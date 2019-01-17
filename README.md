@@ -31,4 +31,3 @@ In order to setup that file you will have to create API keys for Google Calendar
 - Emoji Support: Figure out how to get the pi to display cute emoji's when you put them in your calendar entries. I did find [this article](https://www.omgubuntu.co.uk/2016/08/enable-color-emoji-linux-google-chrome-noto), but that didn't resolve things for me. If I do sort it out, it would likely need to be a script that you run on the pi, since it's an OS or browser level change
 - Dynamic resolution support: to get things to look nice I hardcoded the dimensions. Math could likely be used to get this looking good without hardcoding, but that was beyond the scope of my kitchen display.
 - More efficient Calendar Reload: take another stab at getting calendars to refresh without reloading the whole page, which is a bit jarring on a pi zero
-- Have a clean error page: if you haven't created a config.js show something more helpful than an error

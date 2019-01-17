@@ -3,6 +3,17 @@
 	<meta http-equiv="refresh" content="1800">
 	<link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
 	<script src='config/config.js'></script>
+	<script>
+		// check that a config.js has been created
+		if (typeof window.city_name == 'undefined') {
+			//the config setting was not found, so the code has not run
+			document.open("text/html", "replace");
+			document.write("<div style='position:fixed; padding:50; margin:0; top:0; left:0; width: 100%; height: 100%; background:rgba(255,255,255)'>");
+			document.write("<h1>You're going to need to setup your config file first. <br>cp ./config/config.js.example config/config.js<br>then edit to apply your keys</h1>");
+			document.write("</div>");
+			document.close();
+		}
+	</script>
 	<script src='lib/jquery.min.js'></script>
 	<script src='lib/moment.min.js'></script>
 	<script src='fullcalendar/fullcalendar.js'></script>
