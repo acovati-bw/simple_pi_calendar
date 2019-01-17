@@ -19,6 +19,9 @@ vi config/config.js
 # edit away
 ```
 
+If you want something other than the cheezy default image, place a file in the directory with the name `image.png`. If you need it to be another type, you'll have to update the source
+
+
 ## Google API Keys Required
 In order to setup that file you will have to create API keys for Google Calendar and Google Maps. This is pretty easy, but does require a google account. Here are some simple [straightforward instructions](https://docs.simplecalendar.io/google-api-key/) on getting an API key. Follow the same steps to get a Maps key as well - you'll want a key for the Google Maps Javascript API.
 
